@@ -32,10 +32,27 @@ public class ProductController extends HttpServlet {
             case "delete":
                 showDeleteForm(req,resp);
                 break;
+            case "search":
+                searchProduct(req, resp);
+                break;
             default:
                 showAllProduct(req, resp);
         }
 
+    }
+
+    private void searchProduct(HttpServletRequest req, HttpServletResponse resp) {
+        String name = req.getParameter("name");
+        List<Product> products = productService.findProductsByName(name);
+        req.setAttribute("products", products);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/product/list.jsp");
+        try {
+            dispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void showDeleteForm(HttpServletRequest req, HttpServletResponse resp) {

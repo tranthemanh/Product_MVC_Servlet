@@ -3,7 +3,9 @@ package com.example.product_mvc.service;
 import com.example.product_mvc.model.Product;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductService implements IProductService {
 
@@ -49,5 +51,12 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(int id) {
         products.removeIf(product -> product.getId() == id);
+    }
+
+    @Override
+    public List<Product> findProductsByName(String name) {
+        return products.stream()
+                .filter(product -> product.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

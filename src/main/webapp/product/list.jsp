@@ -13,6 +13,11 @@
 </head>
 <body>
 <h1>Danh Sach San Pham</h1>
+<form action="${pageContext.request.contextPath}/products" method="get">
+    <input type="text" name="name" placeholder="Nhập tên sản phẩm">
+    <input type="hidden" name="action" value="search">
+    <button type="submit">Tìm kiếm</button>
+</form>
 <p>
     <a href="/products?action=create">Create new product</a>
 </p>
